@@ -484,6 +484,13 @@
 ### The purpose of this rule is to detect when an admin may be abusing power by looking in user's home dir.
 -a always,exit -F dir=/home -F uid=0 -F auid>=1000 -F auid!=-1 -C auid!=obj_uid -k power_abuse
 
+#Can be used to detect remote shell usage
+
+-a always,exit -F arch=b64  -F exe=/bin/bash -F success=1 -S connect -k "remote_shell"
+-a always,exit -F arch=b64  -F exe=/usr/bin/bash -F success=1 -S connect -k "remote_shell"
+-a always,exit -F arch=b32  -F exe=/bin/bash -F success=1 -S connect -k "remote_shell"
+-a always,exit -F arch=b32  -F exe=/usr/bin/bash -F success=1 -S connect -k "remote_shell"
+
 # Socket Creations
 # will catch both IPv4 and IPv6
 
